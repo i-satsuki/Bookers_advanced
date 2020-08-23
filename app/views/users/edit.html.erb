@@ -1,6 +1,6 @@
 <% if @user.id == current_user.id %>
 	<div class="container">
-		<h2>User Info</h2>
+		<h2>User info</h2>
 		<%= form_for(@user) do |f| %>
 			<% if @user.errors.any? %>
 			    <div id="error_explanation">

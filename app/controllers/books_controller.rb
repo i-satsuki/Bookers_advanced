@@ -30,9 +30,15 @@ class BooksController < ApplicationController
 	def edit
 		@book = Book.find(params[:id])
 		@user = User.find_by(id: @book.user_id)
+		if @book.user == current_user
+			render :edit
+		else
+			redirect_to books_path
+		end
 	end
 
 	def update
+		@user = current_user
 		@book = Book.find(params[:id])
 		if @book.update(book_params)
 			flash[:notice] = 'You have updated book successfully.'
