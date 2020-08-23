@@ -4,14 +4,15 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable,
 	     :recoverable, :rememberable, :validatable
 
-	has_many :book, dependent: :destroy
+	has_many :books, dependent: :destroy
 
-	attachment :image
+	attachment :profile_image
 
-	validates :name, presence: true, uniqueness: true, length: {minimum: 2}
+	validates :name, presence: true, uniqueness: true, length: {minimum: 2}, length: {maximum: 20}
 	validates :email, presence: true
-	validates :password, presence: true
-	validates :password_confirmation, presence: true
+	validates :password, presence: true, length: { minimum: 6 }, on: :create
+	validates :password_confirmation, presence: true, on: :create
+	validates :introduction, length: {maximum: 50}
 
 	def email_required?
 		false

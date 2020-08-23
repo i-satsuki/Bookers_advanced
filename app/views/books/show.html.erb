@@ -1,12 +1,64 @@
-<%= form_for(@book) do |f| %>
-  <% if @book.errors.any? %>
-    <%= @book.errors.count %>件のエラーが発生しました
-    <% @book.errors.full_messages.each do |message| %>
-      <%= message %>
+<div class="container">
+	 <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
     <% end %>
-  <% end %>
-
-  <%= f.text_field :title %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
-<% end %>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="profile-container">
+				<h2>User info</h2>
+				<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>name</th>
+							<th><%= @book.user.name %></th>
+						</tr>
+						<tr>
+							<th>introduction</th>
+							<th><%= @book.user.introduction %></th>
+						</tr>
+					</tbody>
+				</table>
+					<% if @user.id == current_user.id %>
+						<button class="btn btn-default col-xs-12">
+							<%= link_to edit_user_path(@user.id) do %>
+								<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+							<% end %>
+						</button>
+					<% end %>
+			</div>
+			<%= render 'books/list', book: @book %>
+		</div>
+		<div class="col-xs-9">
+			<h2>Book detail</h2>
+			<table class="table">
+				<tbody>
+					<tr>
+						<td>
+							<%= link_to user_path(@user.id) do %>
+								<%= attachment_image_tag @user, :profile_image, size:'40x40', format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+								<br>
+								<br>
+								<%= @book.user.name %>
+							<% end %>
+						</td>
+						<td><%= @book.title %></td>
+						<td><%= @book.body %></td>
+						<td>
+							<% if @book.user == current_user %>
+								<%= link_to "Edit", edit_book_path(@book), class: "btn-success btn-sm" %>
+							<% end %>
+						</td>
+						<td>
+							<% if @book.user == current_user %>
+								<%= link_to "Destroy",book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn-danger btn-sm" %>
+							<% end %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

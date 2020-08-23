@@ -9,7 +9,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
-
   <body>
     <header>
       <div class="container clearfix">
@@ -20,45 +19,44 @@
           <ul class="navbar-right clearfix">
             <% if user_signed_in? %>
               <li>
-                <%= link_to do%>
-                  <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home
-                <% end %>
-                <%= link_to "Home", user_path(current_user.id), class:'glyphicon glyphicon-home' %>
-              </li>
-              <li>
-                <%= link_to do%>
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>Users
+                <%= link_to user_path(current_user.id) do%>
+                  <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp; Home
                 <% end %>
               </li>
               <li>
-                <%= link_to do %>
-                  <span class="glyphicon glyphicon-book" aria-hidden="true"></span>Books
+                <%= link_to users_path do%>
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp; Users
+                <% end %>
+              </li>
+              <li>
+                <%= link_to books_path do %>
+                  <span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp;&nbsp; Books
                 <% end %>
               </li>
               <li>
                 <%= link_to destroy_user_session_path, method: :delete do %>
-                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>logout
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp; logout
                 <% end %>
               </li>
             <% else %>
               <li>
-                <%= link_to do %>
-                  <span class="glyphicon glyphicon-home" aria-hidden="true">Home</span>
+                <%= link_to "/top/index" do %>
+                  <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp; Home
                 <% end %>
               </li>
               <li>
-                <%= link_to do %>
-                  <span class="glyphicon glyphicon-link" aria-hidden="true"></span>About
+                <%= link_to "/home/about" do %>
+                  <span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;&nbsp; About
                 <% end %>
               </li>
               <li>
                 <%= link_to new_user_registration_path do %>
-                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>sign up
+                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;&nbsp; sign up
                 <% end %>
               </li>
               <li>
                 <%= link_to new_user_session_path do %>
-                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>login
+                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp; login
                 <% end %>
               </li>
             <% end %>
